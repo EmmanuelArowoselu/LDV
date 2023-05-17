@@ -4,6 +4,7 @@ const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'dev'
 
@@ -45,7 +46,9 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].css',
             chunkFilename: '[id].css'
-        })
+        }),
+
+        
     ],
 
     module: {
@@ -85,10 +88,12 @@ module.exports = {
                 loader: 'file-loader',
                 options: {
                     name (file) {
-                        return'[name].[ext]'
+                        return'[hash].[ext]'
                     }
                 }
-            }
+            },
+
+        
         ]
     }
 }
